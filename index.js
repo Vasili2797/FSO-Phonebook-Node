@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
-let phonebook=[
+let persons=[
     { 
       "id": 1,
       "name": "Arto Hellas", 
@@ -30,13 +30,20 @@ let phonebook=[
     }
 ]
 
+//Getting all the people
 app.get('/api/persons', (request, response)=>{
-    response.send(phonebook);
+    response.send(persons);
 });
 
+//Getting a person info
+app.get('/info', (request, response)=>{
+    response.send(`Phonebook has info for ${persons.length} people.<br/><br/> ${Date()}`);
+});
+
+//Get a single individual
 app.get('/api/persons/:id', (request, response)=>{
     const id=Number(request.params.id);
-    const contact = phonebook.find(contact=> contact.id === id)
+    const contact = persons.find(contact=> contact.id === id)
     if(contact){
         response.json(contact);
     }else{
@@ -44,33 +51,30 @@ app.get('/api/persons/:id', (request, response)=>{
     }
 });
 
+// generate a ranndom ID
 const generateId=()=>{
-    const newId = Math.random()*phonebook.length;
-    return Math.ceil(newId)+1;
+    const maxID = persons.length>0 ? Math.max(...persons.map(n=>n.id)) : 0;
+    return maxID+1;
 }
 
 app.post('/api/persons', (request, response)=>{
     const body = request.body;
 
-    body.id=generateId();
+    let entry={
+        id:generateId(),
+        name: body.name,
+        number: body.number
+    }
 
-    phonebook.concat(contact);
-    response.json(contact);
-    response.status(201).send(phonebook);
+    persons.push(entry);
+    response.json(entry);
 })
 
 app.delete('/api/persons/:id', (request, response)=>{
     const id=Number(request.params.id);
-    let contact  = phonebook.filter((contact)=>contact.id!==id);
-    response.send(contact)
-});
-
-app.get('/info', (request, response)=>{
-    response.send(`Phonebook has info for ${phonebook.length} people.<br/><br/> ${Date()}`);
-});
-
-app.get('/',(request, response)=>{
-    response.send('<h1>Hello World</h1>');
+    persons  = persons.filter((contact)=>contact.id!=id);
+    response.status(204).end();
+    // response.send(contact)
 });
 
 const PORT = 3001
