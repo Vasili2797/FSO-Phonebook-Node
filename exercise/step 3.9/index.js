@@ -42,6 +42,11 @@ let persons = [
     name: "Mary Poppendieck",
     number: "39-23-6423122",
   },
+  {
+    id: "5",
+    name: "Mary Fifov",
+    number: "39-23-642e212e3122",
+  },
 ];
 
 const requestLogger = (request, response, next) => {
@@ -114,7 +119,7 @@ app.post("/api/persons", (request, response) => {
   };
 
   persons = persons.concat(personAdded);
-  response.status(201).json(persons);
+  response.status(201).json(personAdded);
 });
 
 const PORT = 3001;
