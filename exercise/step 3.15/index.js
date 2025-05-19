@@ -22,13 +22,11 @@ app.use(
     ":method :url :status :res[content-length] - :response-time ms :req-body"
   )
 );
-const encodedPassword = "1@Saqartvelo";
+const encodedPassword = "1%40Saqartvelo";
 
-const url = `mongodb+srv://bjornbjornssonn:${encodedPassword}@cluster0.8qqv2wd.mongodb.net/phoneContactApp?retryWrites=true&w=majority&appName=Cluster0
-`;
-MONGODB_URI = `mongodb+srv://bjornbjornssonn:${encodedPassword}@cluster0.8qqv2wd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-
-// mongodb+srv://bjornbjornssonn:<password>@cluster0.8qqv2wd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+const url = `mongodb+srv://bjornbjornssonn:${encodedPassword}@cluster0.8qqv2wd.mongodb.net/phoneContactApp?retryWrites=true&w=majority&appName=Cluster0`;
+MONGODB_URI = `mongodb+srv://bjornbjornssonn:${encodedPassword}@cluster0.8qqv2wd.mongodb.net/phoneContactApp?retryWrites=true&w=majority&appName=Cluster0`;
+console.log(url);
 
 mongoose.set("strictQuery", false);
 console.log("🚀 Starting index.js");
